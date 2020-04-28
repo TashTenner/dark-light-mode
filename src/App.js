@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Card from "./Card";
+import ThemeContext from "./ThemeContext";
+
+const Section = () => <Card />;
+const Container = () => <Section />;
+
+class App extends React.Component {
+  state = {
+    theme: "dark",
+    themes: ["light", "dark"]
+  };
+
+  switchTheme = () => {
+    const newTheme = this.state.theme === "dark" ? "default" : "dark";
+    this.setState({
+      theme: newTheme
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.switchTheme}>Switch theme</button>
+        {/* <Container theme={this.state.theme} /> */}
+
+        <ThemeContext.Provider value={this.state}>
+          <Container />
+        </ThemeContext.Provider>
+      </div>
+    );
+  }
 }
-
 export default App;
